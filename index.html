@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ū<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,12 +16,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             AOS.init({
-                duration: 1200,
+                duration: 600,
                 easing: 'ease-in-out',
                 once: true
             });
             
             gsap.registerPlugin(ScrollTrigger);
+            
+            // Hide preloader after 800ms
+            setTimeout(() => {
+                const preloader = document.querySelector('.preloader');
+                if (preloader) {
+                    preloader.style.opacity = '0';
+                    preloader.style.transition = 'opacity 0.3s ease';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 300);
+                }
+            }, 800);
         });
     </script>
 </head>

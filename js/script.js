@@ -73,7 +73,7 @@ const animateStats = () => {
                         if (isPlus && !isPercentage) displayValue += '+';
                         target.textContent = displayValue;
                     }
-                }, 50);
+                }, 20);
                 
                 observer.unobserve(target);
             }
@@ -94,7 +94,7 @@ const fadeInObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
-            entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            entry.target.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
         }
     });
 }, observerOptions);
@@ -144,7 +144,7 @@ if (contactForm) {
             this.reset();
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-        }, 2000);
+        }, 1000);
     });
 }
 
@@ -216,8 +216,8 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Refined typing effect for hero title
-function typeWriter(element, text, speed = 80) {
+// Optimized typing effect for hero title
+function typeWriter(element, text, speed = 30) {
     let i = 0;
     element.innerHTML = '';
 
@@ -236,11 +236,11 @@ window.addEventListener('load', () => {
     const heroTitle = document.querySelector('.hero h1');
     if (heroTitle) {
         const originalText = heroTitle.textContent;
-        typeWriter(heroTitle, originalText, 50);
+        typeWriter(heroTitle, originalText, 25);
     }
 });
 
-// Simplified fade-in animations for sections
+// Optimized fade-in animations for sections
 const revealSections = () => {
     const sections = document.querySelectorAll('section');
 
@@ -261,8 +261,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section');
     sections.forEach(section => {
         section.style.opacity = '0';
-        section.style.transform = 'translateY(50px)';
-        section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
     });
 
     window.addEventListener('scroll', revealSections);
@@ -287,49 +287,8 @@ const debouncedReveal = debounce(revealSections, 10);
 window.removeEventListener('scroll', revealSections);
 window.addEventListener('scroll', debouncedReveal);
 
-// Contact form handling
-const contactForm = document.querySelector('.contact-form');
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(this);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
-    
-    // Simple validation
-    if (!name || !email || !subject || !message) {
-        alert('Please fill in all fields.');
-        return;
-    }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Please enter a valid email address.');
-        return;
-    }
-    
-    // Simulate form submission
-    const submitButton = this.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    
-    submitButton.textContent = 'Sending...';
-    submitButton.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        alert('Thank you for your message! I\'ll get back to you soon.');
-        this.reset();
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-    }, 2000);
-});
-
 // Typing effect for hero title
-function typeWriter(element, text, speed = 100) {
+function typeWriter(element, text, speed = 80) {
     let i = 0;
     element.innerHTML = '';
     
@@ -347,19 +306,11 @@ function typeWriter(element, text, speed = 100) {
 // Initialize typing effect when page loads
 window.addEventListener('load', () => {
     const heroTitle = document.querySelector('.hero-title');
-    const originalText = heroTitle.textContent;
-    typeWriter(heroTitle, originalText, 80);
-});
-
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    const heroImage = document.querySelector('.hero-image');
-    
-    if (hero && heroImage) {
-        heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
+    if (heroTitle) {
+        const originalText = heroTitle.textContent;
+        typeWriter(heroTitle, originalText, 60);
     }
+    document.body.classList.add('loaded');
 });
 
 // Dynamic year in footer
@@ -371,93 +322,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Skills animation on hover
+// Skills animation on hover (optimized)
 document.querySelectorAll('.skill-item').forEach(skill => {
     skill.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.1) rotate(5deg)';
+        this.style.transform = 'scale(1.05) rotate(2deg)';
+        this.style.transition = 'transform 0.2s ease';
     });
     
     skill.addEventListener('mouseleave', function() {
         this.style.transform = 'scale(1) rotate(0deg)';
     });
 });
-
-// Project card tilt effect
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mousemove', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-    });
-});
-
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-});
-
-// Scroll to top functionality
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-// Show/hide scroll to top button
-window.addEventListener('scroll', () => {
-    const scrollButton = document.getElementById('scrollToTop');
-    if (scrollButton) {
-        if (window.pageYOffset > 300) {
-            scrollButton.style.display = 'block';
-        } else {
-            scrollButton.style.display = 'none';
-        }
-    }
-});
-
-// Add cursor trail effect
-document.addEventListener('mousemove', (e) => {
-    const trail = document.createElement('div');
-    trail.className = 'cursor-trail';
-    trail.style.left = e.clientX + 'px';
-    trail.style.top = e.clientY + 'px';
-    
-    document.body.appendChild(trail);
-    
-    setTimeout(() => {
-        trail.remove();
-    }, 1000);
-});
-
-// Performance optimization: Debounce scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debouncing to scroll events
-const debouncedScroll = debounce(() => {
-    // Scroll-dependent operations here
-}, 10);
-
-window.addEventListener('scroll', debouncedScroll);
